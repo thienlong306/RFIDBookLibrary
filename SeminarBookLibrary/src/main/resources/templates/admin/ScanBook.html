@@ -121,9 +121,11 @@
                                         </a>
                                     </div>
                                     <div  th:if="${rfid.status==1}">
-                                        <button type="button" class="btn btn-secondary">
-                                            Edit
-                                        </button>
+                                        <a th:href="@{/admin/scan/addOrEdit/}+${rfid.idTagRead}">
+                                            <button type="button" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                        </a>
                                         <a th:href="@{/admin/delete/}+${rfid.bookDomain.idBook}">
                                             <button type="button" class="btn btn-danger">
                                                 Delete

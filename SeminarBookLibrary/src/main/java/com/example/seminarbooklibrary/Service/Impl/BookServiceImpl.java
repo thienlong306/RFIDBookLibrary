@@ -1,7 +1,5 @@
 package com.example.seminarbooklibrary.Service.Impl;
 
-
-
 import com.caen.RFIDLibrary.*;
 import com.example.seminarbooklibrary.Domain.BookDomain;
 import com.example.seminarbooklibrary.Domain.TagReadDomain;
@@ -10,6 +8,7 @@ import com.example.seminarbooklibrary.Repository.BookRepository;
 import com.example.seminarbooklibrary.Service.BookService;
 import com.example.seminarbooklibrary.Service.TagReadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -38,7 +37,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void addBookBorrow(Long idbook) {
-        listIdBook.add(idbook);
+        if(!listIdBook.contains(idbook))
+            listIdBook.add(idbook);
     }
 
     @Override
@@ -90,6 +90,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Query(nativeQuery = true, value = "SELECT * FROM books WHERE book_title LIKE %:contentSearch% OR book_author LIKE %:contentSearch%")
+    public List<BookDomain> findAllByTitleBookOrAuthorBookContaining(String contentSearch) {
+        return bookRepository.findAllByTitleBookOrAuthorBookContaining(contentSearch);
+    }
+
+    @Override
     public BookDomain getById(Long aLong) {
         return bookRepository.getById(aLong);
     }
@@ -127,7 +133,7 @@ public class BookServiceImpl implements BookService {
         return listIdBook;
     }
     @Override
-    public ArrayList<TagReadModel> getListInfoRFID() {
+    public ArrayList<TagReadModel> getListInfoRFID() throws Exception {
         ArrayList<String> listRfid = new ArrayList<>();
         listInfoRfid.clear();
         listRfid.add("E28011606000020958CDC43E");

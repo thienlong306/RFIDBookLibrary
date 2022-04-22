@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
     public long count() {
         return userRepository.count();
     }
+
+    @Override
+    public UserDomain findByLoginNameUserAndLoginPasswordUser(String loginNameUser, String loginPasswordUser) {
+        return userRepository.findByLoginNameUserAndLoginPasswordUser(loginNameUser, loginPasswordUser);
+    }
 }

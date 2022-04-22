@@ -39,22 +39,38 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#" th:href="@{/}">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{/userBorrow}">Your List Borrow</a>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#" th:href="@{/borrow}">List Book Borrow</a>
                         </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/borrow}" role="button" aria-expanded="false"> <i
+                                    class="fa-solid fa-book"></i></span> <span th:text="${booksBorrow.size()}"></span> -
+                                Book Borrow<span class="caret"></span></a>
+                        </li>
                     </ul>
                     <!-- Left links -->
-
                     <div class="d-flex align-items-center">
-                        <a th:href="@{/borrow}" role="button" aria-expanded="false"> <i class="fa-solid fa-book"></i></span> <span th:text="${booksBorrow.size()}"></span> - Book Borrow<span class="caret"></span></a>
-                        <!-- <button type="button" class="btn btn-link px-3 me-2">
-                            Login
-                        </button>
-                        <button type="button" class="btn btn-primary me-3">
-                            Sign up for free
-                        </button>
-                        <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
-                                class="fab fa-github"></i></a> -->
+                        <div th:if="${user==null}">
+                            <a th:href="@{/login}">
+                                <button type="button" class="btn btn-link px-3 me-2">
+                                    Login
+                                </button>
+                            </a>
+                            <a th:href="@{/signUp}">
+                                <button type="button" class="btn btn-primary me-3">
+                                    Sign up for free
+                                </button>
+                            </a>
+                            <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit"
+                                role="button"><i class="fab fa-github"></i></a>
+                        </div>
+                        <div th:if="${user.nameUser!=null}">
+                            <i class="fas fa-user"></i> <span th:text="${user.nameUser}"></span>
+                            <a th:href="@{logout}">Logout</a>
+                        </div>
                     </div>
                 </div>
                 <!-- Collapsible wrapper -->
@@ -90,8 +106,8 @@
                                 <tbody>
                                     <tr th:if="${booksBorrow!=null}" th:each="book:${booksBorrow}">
                                         <td>
-                                            <img class="img-fluid w-25 border-0"
-                                                 th:src="@{/data/}+${book.imgBook}" alt="">
+                                            <img class="img-fluid w-25 border-0" th:src="@{/data/}+${book.imgBook}"
+                                                alt="">
                                         </td>
                                         <td>
                                             <p class="fw-normal mb-1" th:text="${book.titleBook}"></p>
@@ -100,7 +116,8 @@
                                             <p class="fw-normal mb-1" th:text="${book.authorBook}"></p>
                                         </td>
                                         <td>
-                                            <a th:href="@{'/deleteBookBorrow/'+${book.idBook}}"><button type="button" class="btn btn-danger me-1">Delete</button></a>
+                                            <a th:href="@{'/deleteBookBorrow/'+${book.idBook}}"><button type="button"
+                                                    class="btn btn-danger me-1">Delete</button></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -114,7 +131,8 @@
                             <h4 class="font-weight-bold h4">Profile</h4>
                         </div>
                     </div>
-                    <form th:action="@{/submitBorrow}" method="post" class="needs-validation" th:object="${user}" novalidate>
+                    <form th:action="@{/submitBorrow}" method="post" class="needs-validation" th:object="${user}"
+                        novalidate>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom01">Name</label>

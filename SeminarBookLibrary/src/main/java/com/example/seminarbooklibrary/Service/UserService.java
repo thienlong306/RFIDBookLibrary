@@ -21,4 +21,6 @@ public interface UserService {
     boolean existsById(Long aLong);
 
     long count();
+
+    UserDomain findByLoginNameUserAndLoginPasswordUser(String loginNameUser, String loginPasswordUser);
 }

@@ -1,6 +1,5 @@
 package com.example.seminarbooklibrary.Controller;
 
-import com.caen.RFIDLibrary.CAENRFIDException;
 import com.example.seminarbooklibrary.Domain.BookDomain;
 import com.example.seminarbooklibrary.Domain.BorrowDetailDomain;
 import com.example.seminarbooklibrary.Domain.BorrowDomain;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.*;
@@ -33,6 +31,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("admin")
@@ -47,6 +46,8 @@ public class AdminController {
     StorageService storageService;
     @Autowired
     TagReadService tagReadService;
+    @Autowired
+    UserService userService;
     @GetMapping("")
     public ModelAndView getHome() {
         ModelAndView modelAndView = new ModelAndView();
@@ -71,7 +72,15 @@ public class AdminController {
     @GetMapping("managerBook")
     public ModelAndView getManagerBook() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("books", bookService.findAll());
+        List<BookDomain> listBookDomain=bookService.findAll();
+        ArrayList<BookModel> listBookModel=new ArrayList<>();
+        for (BookDomain bookDomain:listBookDomain){
+            BookModel bookModel=new BookModel();
+            BeanUtils.copyProperties(bookDomain,bookModel);
+            bookModel.setIdTagRead(tagReadService.findByIdBook(bookDomain.getIdBook()).getIdTagRead());
+            listBookModel.add(bookModel);
+        }
+        modelAndView.addObject("books", listBookModel);
         modelAndView.setViewName("admin/ManagerBook");
         return modelAndView;
     }
@@ -90,6 +99,8 @@ public class AdminController {
         for (BorrowDetailDomain borrowDetailDomain:borrowDetailService.findAllByIdBorrow(idBorrow)){
             listBook.add(borrowDetailDomain.getIdBook());
         }
+        modelAndView.addObject("userBorrow",userService.getById(borrowService.getById(idBorrow).getIdUser()));
+        modelAndView.addObject("borrow",borrowService.getById(idBorrow));
         modelAndView.addObject("books",bookService.findAllById(listBook));
         modelAndView.setViewName("admin/DetailsBorrow");
         return modelAndView;
@@ -98,6 +109,14 @@ public class AdminController {
     public ModelAndView getAddOrEditBook(@PathVariable("idTagRead") String idTagRead) {
         ModelAndView modelAndView = new ModelAndView();
         BookModel bookModel=new BookModel();
+        if (tagReadService.existsById(idTagRead)){
+            BookDomain bookDomain=new BookDomain();
+            bookDomain=bookService.getById(tagReadService.getById(idTagRead).getIdBook());
+            BeanUtils.copyProperties(bookDomain,bookModel);
+            modelAndView.addObject("title","Edit");
+        }else {
+            modelAndView.addObject("title","Add");
+        }
         bookModel.setIdTagRead(idTagRead);
         modelAndView.addObject("book",bookModel);
         modelAndView.setViewName("admin/AddEditBook");
@@ -112,22 +131,41 @@ public class AdminController {
     @PostMapping("scan/addOrEdit")
     public ModelAndView postAddOrEditBook(@Valid @ModelAttribute("book")BookModel bookModel) {
         ModelAndView modelAndView = new ModelAndView();
-        bookModel.setStatusBook(1);
-        bookModel.setImgBook(bookModel.getTitleBook()+".jpg");
-        try {
-            InputStream inputStream=new BufferedInputStream(bookModel.getImgFile().getInputStream());
-            Path path = Paths.get("uploads/images/"+bookModel.getImgBook());
-            Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!tagReadService.existsById(bookModel.getIdTagRead())){
+            bookModel.setStatusBook(1);
+            bookModel.setImgBook(bookModel.getTitleBook()+".jpg");
+            try {
+                InputStream inputStream=new BufferedInputStream(bookModel.getImgFile().getInputStream());
+                Path path = Paths.get("uploads/images/"+bookModel.getImgBook());
+                Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            BookDomain entity = new BookDomain();
+            BeanUtils.copyProperties(bookModel,entity);
+            bookService.saveAndFlush(entity);
+            TagReadDomain tagReadDomain=new TagReadDomain();
+            tagReadDomain.setIdTagRead(bookModel.getIdTagRead());
+            tagReadDomain.setIdBook(bookService.findTopByOrderByIdBookDesc().getIdBook());
+            tagReadService.saveAndFlush(tagReadDomain);
+        }else {
+            BookDomain bookDomain=new BookDomain();
+            Long idBook = tagReadService.getById(bookModel.getIdTagRead()).getIdBook();
+            bookModel.setIdBook(idBook);
+            bookModel.setImgBook(bookService.getById(idBook).getImgBook());
+            bookModel.setStatusBook(bookService.getById(idBook).getStatusBook());
+            if (!bookModel.getImgFile().isEmpty()){
+                try {
+                    InputStream inputStream=new BufferedInputStream(bookModel.getImgFile().getInputStream());
+                    Path path = Paths.get("uploads/images/"+bookModel.getImgBook());
+                    Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            BeanUtils.copyProperties(bookModel,bookDomain);
+            bookService.saveAndFlush(bookDomain);
         }
-        BookDomain entity = new BookDomain();
-        BeanUtils.copyProperties(bookModel,entity);
-        bookService.saveAndFlush(entity);
-        TagReadDomain tagReadDomain=new TagReadDomain();
-        tagReadDomain.setIdTagRead(bookModel.getIdTagRead());
-        tagReadDomain.setIdBook(bookService.findTopByOrderByIdBookDesc().getIdBook());
-        tagReadService.saveAndFlush(tagReadDomain);
         modelAndView.setViewName("redirect:/admin/managerBook");
         return modelAndView;
     }

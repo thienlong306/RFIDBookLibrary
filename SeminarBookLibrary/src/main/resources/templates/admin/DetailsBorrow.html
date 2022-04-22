@@ -75,8 +75,48 @@
                     <h1 class="font-weight-bold h1">Details Of Borrow</h1>
                 </div>
             </div>
-            <section class="h-100 h-custom">
-                <div class="container h-100 py-5">
+            <section class="h-100 h-custom d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">User</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" th:text="${userBorrow.loginNameUser}"></p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Name</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" th:text="${userBorrow.nameUser}"></p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Phone</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" th:text="${userBorrow.phoneUser}"></p>
+                          </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Borrow Date</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" th:text="${borrow.beginDateBorrow}"></p>
+                          </div>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                <div class="container py-5">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col">
 

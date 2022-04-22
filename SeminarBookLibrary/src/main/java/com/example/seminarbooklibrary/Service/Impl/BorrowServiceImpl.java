@@ -79,6 +79,23 @@ public class BorrowServiceImpl implements BorrowService {
         return listBorrowModel;
     }
     @Override
+    public ArrayList<BorrowModel> getListUserBorrowModel(Long idUser){
+        ArrayList<BorrowModel> listBorrowModel=new ArrayList<>();
+        List<BorrowDomain> listborrowDomain=borrowRepository.findAllByIdUser(idUser);
+        for (BorrowDomain borrowDomain:listborrowDomain){
+            BorrowModel borrowModel=new BorrowModel();
+            borrowModel.setIdBorrow(borrowDomain.getIdBorrow());
+            borrowModel.setBeginDateBorrow(borrowDomain.getBeginDateBorrow());
+            borrowModel.setEndDateBorrow(borrowDomain.getEndDateBorrow());
+            borrowModel.setIdUser(borrowDomain.getIdUser());
+            borrowModel.setStatusBorrow(borrowDomain.getStatusBorrow());
+            borrowModel.setReturnDateBorrow(borrowDomain.getReturnDateBorrow());
+            borrowModel.setUserDomain(userRepository.getById(borrowDomain.getIdUser()));
+            listBorrowModel.add(borrowModel);
+        }
+        return listBorrowModel;
+    }
+    @Override
     public ArrayList<BorrowModel> getListBorrowModelByBorrower(String nameUser, Date dateFrom, Date dateTo){
         ArrayList<BorrowModel> listBorrowModel=new ArrayList<>();
         List<BorrowDomain> listborrowDomainTmp=new ArrayList<>();
@@ -87,7 +104,8 @@ public class BorrowServiceImpl implements BorrowService {
         for (BorrowDomain borrowDomain:listborrowDomain){
             if (dateFrom!=null) {
                 if (borrowDomain.getBeginDateBorrow().after(dateFrom)||borrowDomain.getBeginDateBorrow().equals(dateFrom))
-                    if (borrowDomain.getEndDateBorrow().before(dateTo)||borrowDomain.getEndDateBorrow().equals(dateTo))
+                    listborrowDomainTmp.add(borrowDomain);
+                else if (borrowDomain.getEndDateBorrow().before(dateTo)||borrowDomain.getEndDateBorrow().equals(dateTo))
                         listborrowDomainTmp.add(borrowDomain);
             }
             else if (borrowDomain.getEndDateBorrow().before(dateTo)||borrowDomain.getEndDateBorrow().equals(dateTo))

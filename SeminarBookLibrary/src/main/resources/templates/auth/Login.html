@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Library</title>
@@ -14,7 +14,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css" rel="stylesheet" />
 
 </head>
-
 <body class="bg-light">
     <div class="container">
         <!-- Navbar -->
@@ -37,20 +36,32 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{/borrow}">List Book Borrow</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/borrow}" role="button" aria-expanded="false"> <i
+                                class="fa-solid fa-book"></i></span> <span th:text="${booksBorrow.size()}"></span> -
+                            Book Borrow<span class="caret"></span></a>
                         </li>
                     </ul>
                     <!-- Left links -->
 
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn btn-link px-3 me-2">
-                            Login
-                        </button>
-                        <button type="button" class="btn btn-primary me-3">
-                            Sign up for free
-                        </button>
-                        <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
-                                class="fab fa-github"></i></a>
+                            <a th:href="@{/login}">
+                                <button type="button" class="btn btn-link px-3 me-2">
+                                    Login
+                                </button>
+                            </a>
+                            <a th:href="@{/signUp}">
+                                <button type="button" class="btn btn-primary me-3">
+                                    Sign up for free
+                                </button>
+                            </a>
+                            <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
+                                    class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <!-- Collapsible wrapper -->
@@ -66,16 +77,16 @@
             </div>
             <div class="row mt-5">
                 <div class="col-4 offset-4">
-                    <form>
+                    <form method="post" th:href="@{login}" th:object="${user}">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                          <input type="email" id="form2Example1" class="form-control border" />
-                          <label class="form-label" for="form2Example1">Email address</label>
+                          <input onvolumechange="" type="text" id="form2Example1" class="form-control border" onchange="" th:field="*{loginNameUser}"/>
+                          <label class="form-label" for="form2Example1">User</label>
                         </div>
                       
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                          <input type="password" id="form2Example2" class="form-control border" />
+                          <input type="password" id="form2Example2" class="form-control border" th:field="*{loginPasswordUser}"/>
                           <label class="form-label" for="form2Example2">Password</label>
                         </div>
                       
@@ -123,9 +134,9 @@
             </div>
         </content>
         <!-- Footer -->
-        <footer class="text-center text-lg-start bg-light text-muted mt-5">
-             <!-- Section: Social media -->
-             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <!-- Section: Social media -->
+            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
                     <span>Get connected with us on social networks:</span>
@@ -156,6 +167,7 @@
                 <!-- Right -->
             </section>
             <!-- Section: Social media -->
+
             <!-- Section: Links  -->
             <section class="">
                 <div class="container text-center text-md-start mt-5">
@@ -257,6 +269,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script>
+        $(".form-control").focus(function (e) { 
+            e.preventDefault();
+            $(this).next().css("transform", "translateY(-1rem) translateY(0.1rem) scale(.8)");
+        });
+    </script>
 </body>
 
 </html>

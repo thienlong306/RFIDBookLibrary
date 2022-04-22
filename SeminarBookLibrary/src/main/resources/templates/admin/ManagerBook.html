@@ -103,9 +103,11 @@
                                     <div th:unless="${book}"><span class="badge badge-danger rounded-pill d-inline">not found</span></div>
                                 </td>
                                 <td>
-                                        <button type="button" class="btn btn-secondary">
-                                            Edit
-                                        </button>
+                                        <a th:href="@{/admin/scan/addOrEdit/}+${book.idTagRead}">
+                                            <button type="button" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                        </a>
                                         <a th:href="@{/admin/delete/}+${book.idBook}">
                                             <button type="button" class="btn btn-danger">
                                                 Delete

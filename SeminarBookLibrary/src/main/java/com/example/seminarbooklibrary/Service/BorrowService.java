@@ -30,5 +30,7 @@ public interface BorrowService {
 
     ArrayList<BorrowModel> getListBorrowModel();
 
+    ArrayList<BorrowModel> getListUserBorrowModel(Long idUser);
+
     ArrayList<BorrowModel> getListBorrowModelByBorrower(String nameUser, Date dateFrom, Date dateTo);
 }

@@ -72,7 +72,7 @@
         <content>
             <div class="row text-center mt-2">
                 <div class="col text-uppercase">
-                    <h1 class="font-weight-bold h1">Add Book</h1>
+                    <h1 class="font-weight-bold h1"><span th:text="${title}"></span> Book</h1>
                 </div>
             </div>
             <div class="row mt-2 mb-2">
@@ -123,7 +123,7 @@
                                             }
                                         }
                                     </script>
-                                    <img src="https://islandpress.org/sites/default/files/default_book_cover_2015.jpg"
+                                    <img th:src="${book.imgBook!=null?'/data/'+book.imgBook:'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg'}"
                                         class="w-50" alt="" id="image">
                                     <br>
                                     <input onchange="chooseFile(this)" type="file" class="form-control-file h-25 mt-2" id="exampleFormControlFile1" name="imageFile" th:field="*{imgFile}">

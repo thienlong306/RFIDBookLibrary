@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface BorrowRepository extends JpaRepository<BorrowDomain,Long> {
     BorrowDomain findTopByOrderByIdBorrowDesc();
+    List<BorrowDomain> findAllByIdUser(Long idUser);
 }

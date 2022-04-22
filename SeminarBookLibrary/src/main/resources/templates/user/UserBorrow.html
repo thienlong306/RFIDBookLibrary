@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <title>Library</title>
@@ -43,8 +43,8 @@
                             <a class="nav-link" href="#" th:href="@{/userBorrow}">Your List Borrow</a>
                         </li>
                         <!-- <li class="nav-item">
-                                <a class="nav-link" href="#" th:href="@{/borrow}">List Book Borrow</a>
-                            </li> -->
+                            <a class="nav-link" href="#" th:href="@{/borrow}">List Book Borrow</a>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/borrow}" role="button" aria-expanded="false"> <i
                                     class="fa-solid fa-book"></i></span> <span th:text="${booksBorrow.size()}"></span> -
@@ -81,60 +81,44 @@
         <content>
             <div class="row text-center mt-2">
                 <div class="col text-uppercase">
-                    <h1 class="font-weight-bold h1">Search by Book Name</h1>
+                    <h1 class="font-weight-bold h1">Your List Borrow</h1>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="">
-                    <form th:action="@{/search}" class="col d-flex justify-content-center">
-                        <div class="form-inline my-2 my-lg-0 me-2">
-                            <select class="form-control" name="menuSearch">
-                                <option>All</option>
-                                <option>Book</option>
-                                <option>Author</option>
-                            </select>
-                        </div>
-                        <div class="form-inline my-2 my-lg-0 d-flex">
-                            <input name="contentSearch" class="form-control mr-sm-2" type="text" placeholder="Search">
-                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h4 class="text-uppercase font-weight-bold h2 mt-2">Browse Books</h4>
-                </div>
-            </div>
-            <div class="row mt-2 bg-white pt-4 pb-4">
-                <div class="col-4 mb-2" th:each=" book:${books}">
-                    <div class="infoBook d-flex ">
-                        <div class="col-6 imgBook p-0">
-                            <img class="img-thumbnail border-0" style="height: 300px;"
-                                th:src="@{/data/}+${book.imgBook}" src="../../static/data/01.jpg" alt="">
-                        </div>
-                        <div class="col-6 detailsBook p-0 mt-2 ml-2">
-                            <div class="info h-50 overflow-hidden">
-                                <h6 th:text="${book.titleBook}"></h6>
-                                <p th:text="${book.authorBook}"></p>
-                                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo nam recusandae
-                                    hic? Corporis recusandae sunt magnam atque ipsam dolorem iusto fugiat id vero
-                                    deleniti minima, ad ipsa dicta magni.</span>
-                            </div>
-
-                            <div class="buttonBook mt-2">
-                                <div class="statusBook mb-2">
-                                    <h6 th:if="${book.statusBook==1}" class="text-success d-inline">Can borrow</h6>
-                                    <h6 th:if="${book.statusBook==0}" class="text-danger d-inline">Can't borrow</h6>
-                                </div>
-                                <a th:if="${book.statusBook==1}" th:href="@{'/addBookBorrow/'+${book.idBook}}"><button
-                                        type="button" class="btn btn-danger me-1">Borrow</button></a>
-                                <a th:if="${book.statusBook==0}"><button type="button" class="btn btn-danger me-1"
-                                        disabled>Borrow</button></a>
-                                <!-- <button type="button" class="btn btn-info">Watch</button> -->
-                            </div>
-                        </div>
-                    </div>
+            <div class="row mt-2 mb-2">
+                <div class="col-12 ">
+                    <table class="table align-middle mb-0 bg-white">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Begin Date</th>
+                                <th>End Date</t>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each=" borrow: ${listInfoBorrow}">
+                                <td th:text="${borrow.idBorrow}">
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1" th:text="${borrow.beginDateBorrow}"></p>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1" th:text="${borrow.endDateBorrow}"></p>
+                                </td>
+                                <td>
+                                    <span class="badge badge-warning rounded-pill d-inline">borrowing</span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/userBorrow/details/}+${borrow.idBorrow}">
+                                        <button type="button" class="btn btn-primary">
+                                            Details
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="row m-4">
@@ -158,7 +142,7 @@
             </div>
         </content>
         <!-- Footer -->
-        <footer class="text-center text-lg-start bg-light text-muted">
+        <footer class="text-center text-lg-start bg-light text-muted mt-5">
             <!-- Section: Social media -->
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
@@ -191,7 +175,6 @@
                 <!-- Right -->
             </section>
             <!-- Section: Social media -->
-
             <!-- Section: Links  -->
             <section class="">
                 <div class="container text-center text-md-start mt-5">
@@ -293,6 +276,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script>
+        $(document).ready(function () {
+            var date_inputBegin = $('input[name="dateBegin"]'); //our date input has the name "date"
+            var date_inputEnd = $('input[name="dateEnd"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_inputBegin.datepicker(options);
+            date_inputEnd.datepicker(options);
+        })
+    </script>
 </body>
 
 </html>

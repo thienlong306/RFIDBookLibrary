@@ -3,6 +3,7 @@ package com.example.seminarbooklibrary.Service;
 import com.caen.RFIDLibrary.CAENRFIDException;
 import com.example.seminarbooklibrary.Domain.BookDomain;
 import com.example.seminarbooklibrary.Model.TagReadModel;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,6 +38,9 @@ public interface BookService {
     <S extends BookDomain> S saveAndFlush(S entity);
 
     <S extends BookDomain> List<S> saveAllAndFlush(Iterable<S> entities);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM books WHERE book_title LIKE %:contentSearch% OR book_author LIKE %:contentSearch%")
+    List<BookDomain> findAllByTitleBookOrAuthorBookContaining(String contentSearch);
 
     BookDomain getById(Long aLong);
 
