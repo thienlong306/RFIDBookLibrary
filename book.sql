@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:8080
--- Thời gian đã tạo: Th4 15, 2022 lúc 05:55 AM
+-- Thời gian đã tạo: Th4 30, 2022 lúc 07:33 AM
 -- Phiên bản máy phục vụ: 10.4.11-MariaDB
 -- Phiên bản PHP: 7.4.4
 
@@ -41,9 +41,10 @@ CREATE TABLE `books` (
 
 INSERT INTO `books` (`book_id`, `book_author`, `book_status`, `book_title`, `book_img`) VALUES
 (1, 'Andre Aciman', 0, 'Call Me By Your Name', 'Call Me By Your Name.jpg'),
-(2, 'Margaret Mitchell', 1, 'Gone With The Wind', 'Gone With The Wind.jpg'),
-(3, 'Colleen McCullough', 1, 'The Thorn Birds', 'The Thorn Birds.jpg'),
-(4, 'Haruki Murakami', 1, 'Kafka On The Shore', 'Kafka On The Shore.jpg');
+(2, 'Margaret Mitchell', 0, 'Gone With The Wind', 'Gone With The Wind.jpg'),
+(3, 'Colleen McCullough', 0, 'The Thorn Birds', 'The Thorn Birds.jpg'),
+(4, 'Haruki Murakami', 1, 'Kafka On The Shore', 'Kafka On The Shore.jpg'),
+(37, 'Test AuthorRR', 1, 'TestRRR', 'Test.jpg');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ CREATE TABLE `borrow` (
 --
 
 INSERT INTO `borrow` (`borrow_id`, `borrow_begindate`, `borrow_enddate`, `user_id`, `borrow_returndate`, `borrrow_status`) VALUES
-(17, '2022-04-15', NULL, 1, NULL, 0);
+(25, '2022-04-22', '2022-04-26', 9, NULL, 0),
+(24, '2022-04-20', '2022-04-24', 7, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -84,7 +86,9 @@ CREATE TABLE `borrow_detail` (
 --
 
 INSERT INTO `borrow_detail` (`borrowdetail_id`, `book_id`, `borrow_id`) VALUES
-(19, 1, 17);
+(33, 3, 25),
+(32, 2, 24),
+(31, 1, 24);
 
 -- --------------------------------------------------------
 
@@ -106,7 +110,8 @@ INSERT INTO `tag_read` (`tag_rfid`, `book_id`, `tag_time`) VALUES
 ('E28011606000020958CDF86E', 1, '2022-04-12'),
 ('E28011606000020958CDC43E', 3, '2022-04-12'),
 ('E28011606000020958CD98FE', 2, '2022-04-12'),
-('E28011606000020958CD98EE', 4, '2022-04-12');
+('E28011606000020958CD98EE', 4, '2022-04-12'),
+('00B07A14285276D030000082', 37, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,8 +132,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_loginname`, `user_loginpassword`, `user_name`, `user_phone`) VALUES
-(1, 'test1', '123', 'long', '123'),
-(2, 'test2', '123', 'vu', '456');
+(8, 'admin', '123', 'Long', '090'),
+(7, 'Test', '123', 'long', '0808'),
+(9, 'Test1', '123', 'Vu', '094');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -172,25 +178,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `book_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT cho bảng `borrow`
 --
 ALTER TABLE `borrow`
-  MODIFY `borrow_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `borrow_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `borrow_detail`
 --
 ALTER TABLE `borrow_detail`
-  MODIFY `borrowdetail_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `borrowdetail_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
