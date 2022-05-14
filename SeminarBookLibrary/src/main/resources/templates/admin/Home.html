@@ -1,279 +1,233 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/adminLayout.html}">
 
 <head>
     <title>Library</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css" rel="stylesheet" />
 </head>
 
-<body class="bg-light">
-    <div class="container">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
-            <div class="container">
-                <!-- Navbar brand -->
-                <a class="navbar-brand me-2" href="https://mdbgo.com/">
-                    <i class="fas fa-book-open fa-2x"></i>
-                </a>
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                    <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/admin/}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/admin/borrow}">Borrow</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/admin/scan}">Scan Book</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/admin/managerBook}">Manager Book</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/admin/managerBorrow}">Manager Borrow</a>
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-
-                    <!-- <div class="d-flex align-items-center">
-                        <button type="button" class="btn btn-link px-3 me-2">
-                            Login
-                        </button>
-                        <button type="button" class="btn btn-primary me-3">
-                            Sign up for free
-                        </button>
-                        <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
-                                class="fab fa-github"></i></a>
-                    </div> -->
-                </div>
-                <!-- Collapsible wrapper -->
+<body>
+    <content layout:fragment="content">
+        <style>
+            .card{
+                margin-top: 1rem !important;
+            }
+            .card-header {
+                background: #29b6f6 !important;
+                color: white;
+            }
+        </style>
+        <div class="row text-center mt-2 mb-2">
+            <div class="col text-uppercase">
+                <h1 class="font-weight-bold h1">Dash Board</h1>
             </div>
-            <!-- Container wrapper -->
-        </nav>
-        <!-- Navbar -->
-        <content>
-            <div class="row text-center mt-2 mb-2">
-                <div class="col text-uppercase">
-                    <h1 class="font-weight-bold h1">Home</h1>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-3">
-                <div class="card">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img style="height: 300px;" src="https://cdn0.iconfinder.com/data/icons/book-glyph/64/Book-scan-target-512.png" class="img-fluid"/>
-                    <a th:href="@{/admin/borrow}">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Borrow</h5>
-                    <p class="card-text">Scan Book and Check for borrow Book Oflline</p>
-                    <a href="#!" th:href="@{/admin/borrow}" class="btn btn-primary">Go to</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="card">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img style="height: 300px;" src="https://icon-library.com/images/rfid-reader-icon/rfid-reader-icon-5.jpg" class="img-fluid"/>
-                    <a th:href="@{/admin/scan}">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Scan Book</h5>
-                    <p class="card-text">Scan Book or Rfid for Add,Edit,Delete</p>
-                    <a href="#!" th:href="@{/admin/scan}" class="btn btn-primary">Go to</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="card">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img style="height: 300px;" src="https://pngset.com/images/stack-of-books-icon-book-icon-gray-world-of-warcraft-transparent-png-1294412.png" class="img-fluid"/>
-                    <a th:href="@{/admin/managerBook}">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Manager Book</h5>
-                    <p class="card-text">Edit Info Book or Remove Book of list Book</p>
-                    <a href="#!" th:href="@{/admin/managerBook}" class="btn btn-primary">Go to</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="card">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img style="height: 300px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_QPMQJBZqnZcrC_gDQyrDGELyy-QXZ_5dIkJrXDJ70kqGgtMeg2KYw_U8DAFloO6tLGs&usqp=CAU" class="img-fluid"/>
-                    <a th:href="@{/admin/managerBorrow}">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Manager Borrow</h5>
-                    <p class="card-text">Manager Borrow and watch details of Borrow</p>
-                    <a href="#!" th:href="@{/admin/managerBorrow}" class="btn btn-primary">Go to</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </content>
-        <!-- Footer -->
-        <footer class="text-center text-lg-start bg-light text-muted">
-            <!-- Section: Social media -->
-            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-                <!-- Left -->
-                <div class="me-5 d-none d-lg-block">
-                    <span>Get connected with us on social networks:</span>
-                </div>
-                <!-- Left -->
-
-                <!-- Right -->
-                <div>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-google"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-                <!-- Right -->
-            </section>
-            <!-- Section: Social media -->
-
-            <!-- Section: Links  -->
-            <section class="">
-                <div class="container text-center text-md-start mt-5">
-                    <!-- Grid row -->
-                    <div class="row mt-3">
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <!-- Content -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                <i class="fas fa-gem me-3"></i>Company name
-                            </h6>
-                            <p>
-                                Here you can use rows and columns to organize your footer content. Lorem ipsum
-                                dolor sit amet, consectetur adipisicing elit.
-                            </p>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                <!-- Card Primary -->
+                <div class="card classic-admin-card primary-color"
+                    style="background-color: #4285F4!important;color: white;">
+                    <div class="card-body d-flex" style="justify-content: space-between;align-items: center;">
+                        <div class="pull-right">
+                            <i style="font-size: 70px;" class="fa-solid fa-earth-africa"></i>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Products
-                            </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Angular</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">React</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Vue</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Laravel</a>
-                            </p>
+                        <div class="infoDashboard">
+                            <h3 class="white-text">Borrow Online</h3>
+                            <h4 th:text="${borrowOnline}"></h4>
                         </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Useful links
-                            </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Pricing</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Settings</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Orders</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Help</a>
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Contact
-                            </h6>
-                            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
-                            <p>
-                                <i class="fas fa-envelope me-3"></i>
-                                info@example.com
-                            </p>
-                            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-                        </div>
-                        <!-- Grid column -->
                     </div>
-                    <!-- Grid row -->
+                    <div class="progress">
+                        <div class="progress-bar bg grey darken-3" role="progressbar"
+                            style="width: 25% ;background-color: #424242!important;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="card-body">
+                        <p>Better than last week (25%)</p>
+                    </div>
                 </div>
-            </section>
-            <!-- Section: Links  -->
-
-            <!-- Copyright -->
-            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-                © 2021 Copyright:
-                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                <!-- Card Primary -->
             </div>
-            <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+            <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                <!-- Card Primary -->
+                <div class="card classic-admin-card primary-color"
+                    style="background-color: #fb3!important;color: white;">
+                    <div class="card-body d-flex" style="justify-content: space-between;align-items: center;">
+                        <div class="pull-right">
+                            <svg style="width: 70px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 161.63 125.44">
+                                <defs>
+                                    <style>
+                                        .cls-1 {
+                                            fill: #fff;
+                                        }
+                                    </style>
+                                </defs>
+                                <title>Asset 1</title>
+                                <g id="Layer_2" data-name="Layer 2">
+                                    <g id="Layer_1-2" data-name="Layer 1">
+                                        <path class="cls-1"
+                                            d="M115.48,70.8c-3.22-1.76-6.42-3.54-9.65-5.27Q60.24,41.19,14.65,16.85C9.54,14.12,8,10.33,9.83,5.51c2-5.28,7.45-7,12.92-4.1q17.19,9.15,34.37,18.33C88.6,36.48,120,53.33,151.63,69.86c7.09,3.71,10.34,8.72,10,16.71-.38,8.18-.07,16.4-.08,24.6,0,8.84-5.37,14.27-14.15,14.27q-66.6,0-133.21,0C5.75,125.43.11,119.83,0,111.31c-.07-8.2,0-16.4,0-24.6,0-9.46,5.6-15,15.15-15q48.3,0,96.6.09h3.47ZM26.65,107.66H29c5.37,0,6.89-1.53,7-6.94,0-2,0-4,0-6-.09-3.61-1.86-5.44-5.5-5.67-1.19-.08-2.39,0-3.59,0-8.38,0-9.41,1-9.41,9.44S18.13,107.66,26.65,107.66Zm27.07,0h2.09c5.7,0,7.27-1.57,7.32-7.29,0-1.89.05-3.79,0-5.68-.17-3.66-1.93-5.4-5.63-5.62-1.09-.07-2.19,0-3.29,0-8.77,0-9.63.84-9.63,9.48S45.08,107.66,53.72,107.66Z" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="infoDashboard">
+                            <h3 class="white-text">Borrow Offline</h3>
+                            <h4 th:text="${borrowOffline}"></h4>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg grey darken-3" role="progressbar"
+                            style="width: 46% ;background-color: #424242!important" aria-valuenow="46" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="card-body">
+                        <p>Better than last week (46%)</p>
+                    </div>
+                </div>
+                <!-- Card Primary -->
+            </div>
+            <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                <!-- Card Primary -->
+                <div class="card classic-admin-card primary-color"
+                    style="background-color: #29b6f6!important;color: white;">
+                    <div class="card-body d-flex" style="justify-content: space-between;align-items: center;">
+                        <div class="pull-right">
+                            <i style="font-size: 70px;" class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="infoDashboard">
+                            <h3 class="white-text">User</h3>
+                            <h4 th:text="${users}"></h4>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg grey darken-3" role="progressbar"
+                            style="width: 30% ;background-color: #424242!important" aria-valuenow="30" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="card-body">
+                        <p>Better than last week (30%)</p>
+                    </div>
+                </div>
+                <!-- Card Primary -->
+            </div>
+            <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                <!-- Card Primary -->
+                <div class="card classic-admin-card primary-color"
+                    style="background-color: #ff5252!important;color: white;">
+                    <div class="card-body d-flex" style="justify-content: space-between;align-items: center;">
+                        <div class="pull-right">
+                            <i style="font-size: 70px;" class="fa fa-book" aria-hidden="true"></i>
+                        </div>
+                        <div class="infoDashboard">
+                            <h3 class="white-text">Books</h3>
+                            <h4 th:text="${books}"></h4>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg grey darken-3" role="progressbar"
+                            style="width: 50% ;background-color: #424242!important" aria-valuenow="50" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="card-body">
+                        <p>Better than last week (50%)</p>
+                    </div>
+                </div>
+                <!-- Card Primary -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-2">
+                <link rel="stylesheet" href="https://rawgit.com/gionkunz/chartist-js/master/dist/chartist.min.css">
+                <script src="https://rawgit.com/gionkunz/chartist-js/master/dist/chartist.min.js"></script>
+                <div class="page-content page-container" id="page-content">
+                    <div class="padding">
+                        <div class="row">
+                            <div class="container-fluid">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Borrow chart
+                                            <span class="ms-3"><span class="chartOffline"
+                                                    style="border-left: 20px solid #d70206;">Offline</span>
+                                                <span class="chartOnline"
+                                                    style="border-left: 20px solid #f05b4f;">Online</span></span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div th:attr="borrowChart=${borrowChart}" class=" ct-chart ct-square chartjs-render-monitor"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col  mt-2">
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+                <div class="page-content page-container" id="page-content">
+                    <div class="padding">
+                        <div class="row">
+                            <div class="container-fluid ">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Book chart</div>
+                                        <div class="card-body" style="height: 420px">
+                                            <div class="chartjs-size-monitor"
+                                                style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                                <div class="chartjs-size-monitor-expand"
+                                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                    <div
+                                                        style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                    </div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink"
+                                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                                    </div>
+                                                </div>
+                                            </div> <canvas id="chart-line-borrow" width="299" height="200"
+                                                class="chartjs-render-monitor"
+                                                style="display: block; width: 299px; height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content page-container mb-2" id="page-content">
+                    <div class="padding">
+                        <div class="row">
+                            <div class="container-fluid ">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Category chart</div>
+                                        <div class="card-body" style="height: 420px">
+                                            <div class="chartjs-size-monitor"
+                                                style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                                <div class="chartjs-size-monitor-expand"
+                                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                    <div
+                                                        style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                    </div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink"
+                                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                                    </div>
+                                                </div>
+                                            </div> <canvas id="chart-line-category" width="299" height="200"
+                                                class="chartjs-render-monitor"
+                                                style="display: block; width: 299px; height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </content>
 </body>
 
 </html>

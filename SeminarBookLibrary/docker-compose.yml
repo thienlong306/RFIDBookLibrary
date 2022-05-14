@@ -1,0 +1,20 @@
+version: '3'
+services:
+    mysqldb:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=1234
+            - MYSQL_DATABASE=book
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=123456
+        volumes:
+            - mysql-data:/var/lib/mysql
+            - ./book.sql:/docker-entrypoint-initdb.d/init.sql
+    web:
+        depends_on:
+            - mysqldb
+        image: book-spring:latest   
+        ports:
+            - "8080:8080"
+volumes:
+    mysql-data:

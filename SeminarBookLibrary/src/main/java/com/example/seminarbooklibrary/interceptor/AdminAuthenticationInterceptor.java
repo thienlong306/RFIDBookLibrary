@@ -1,7 +1,6 @@
-package com.example.seminarbooklibrary.interceptor;
+package com.example.seminarbooklibrary.Interceptor;
 
 import com.example.seminarbooklibrary.Domain.UserDomain;
-import com.example.seminarbooklibrary.Model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -1,6 +1,6 @@
-package com.example.seminarbooklibrary.config;
+package com.example.seminarbooklibrary.Config;
 
-import com.example.seminarbooklibrary.interceptor.AdminAuthenticationInterceptor;
+import com.example.seminarbooklibrary.Interceptor.AdminAuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

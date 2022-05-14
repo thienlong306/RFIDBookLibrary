@@ -1,90 +1,18 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/userLayout.html}">
 
 <head>
     <title>Library</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css" rel="stylesheet" />
-
 </head>
 
-<body class="bg-light">
-    <div class="container">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
-            <div class="container">
-                <!-- Navbar brand -->
-                <a class="navbar-brand me-2" href="https://mdbgo.com/">
-                    <i class="fas fa-book-open fa-2x"></i>
-                </a>
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                    <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/userBorrow}">Your List Borrow</a>
-                        </li>
-                        <!-- <li class="nav-item">
-                                <a class="nav-link" href="#" th:href="@{/borrow}">List Book Borrow</a>
-                            </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/borrow}" role="button" aria-expanded="false"> <i
-                                    class="fa-solid fa-book"></i></span> <span th:text="${booksBorrow.size()}"></span> -
-                                Book Borrow<span class="caret"></span></a>
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-                    <div class="d-flex align-items-center">
-                        <div th:if="${user==null}">
-                            <a th:href="@{/login}">
-                                <button type="button" class="btn btn-link px-3 me-2">
-                                    Login
-                                </button>
-                            </a>
-                            <a th:href="@{/signUp}">
-                                <button type="button" class="btn btn-primary me-3">
-                                    Sign up for free
-                                </button>
-                            </a>
-                            <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit"
-                                role="button"><i class="fab fa-github"></i></a>
-                        </div>
-                        <div th:if="${user!=null}">
-                            <i class="fas fa-user"></i> <span th:text="${user.nameUser}"></span>
-                            <a th:href="@{logout}"><u>Logout</u></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Collapsible wrapper -->
+<body>
+    <content layout:fragment="content">
+        <div class="row mt-2">
+            <div class="col">
+                <h4 class="text-uppercase font-weight-bold h2 mt-2">Browse Books</h4>
             </div>
-            <!-- Container wrapper -->
-        </nav>
-        <!-- Navbar -->
-        <content>
-            <div class="row text-center mt-2">
-                <div class="col text-uppercase">
-                    <h1 class="font-weight-bold h1">Search by Book Name</h1>
-                </div>
-            </div>
-            <div class="row mt-2">
+            <div class="col d-flex align-items-center" style="justify-content: flex-end;">
                 <div class="">
                     <form th:action="@{/search}" class="col d-flex justify-content-center">
                         <div class="form-inline my-2 my-lg-0 me-2">
@@ -101,37 +29,45 @@
                     </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <h4 class="text-uppercase font-weight-bold h2 mt-2">Browse Books</h4>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div th:replace="fragments/user/side::side"></div>
             </div>
-            <div class="row mt-2 bg-white pt-4 pb-4">
-                <div class="col-4 mb-2" th:each=" book:${books}">
-                    <div class="infoBook d-flex ">
-                        <div class="col-6 imgBook p-0">
-                            <img class="img-thumbnail border-0" style="height: 300px;"
-                                th:src="@{/data/}+${book.imgBook}" src="../../static/data/01.jpg" alt="">
-                        </div>
-                        <div class="col-6 detailsBook p-0 mt-2 ml-2">
-                            <div class="info h-50 overflow-hidden">
-                                <h6 th:text="${book.titleBook}"></h6>
-                                <p th:text="${book.authorBook}"></p>
-                                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nemo nam recusandae
-                                    hic? Corporis recusandae sunt magnam atque ipsam dolorem iusto fugiat id vero
-                                    deleniti minima, ad ipsa dicta magni.</span>
+            <div class="col-9 " style="border-left: 1px solid #dadada; ">
+                <div class="row mt-2 bg-white pt-4 pb-4">
+                    <div class="col-4 mb-4" th:each="book:${books}">
+                        <div class="card">
+                            <div class="bg-image hover-overlay ripple d-flex" data-mdb-ripple-color="light">
+                                <img th:src="@{/data/}+${book.imgBook}" src="../../static/data/01.jpg"
+                                    class="imgBrowser"
+                                    style="width: 120px;height: 190px;margin: auto;padding-top: 10px;" />
+                                <a href="#!">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                </a>
                             </div>
-
-                            <div class="buttonBook mt-2">
-                                <div class="statusBook mb-2">
-                                    <h6 th:if="${book.statusBook==1}" class="text-success d-inline">Can borrow</h6>
-                                    <h6 th:if="${book.statusBook==0}" class="text-danger d-inline">Can't borrow</h6>
+                            <div class="card-body text-center">
+                                <h5 class="card-title" th:text="${book.titleBook}">Title</h5>
+                                <p th:text="${book.authorBook}"></p>
+                                <div class="buttonBook mt-2">
+                                    <div class="statusBook mb-2">
+                                        <h6 th:if="${book.statusBook==1}" class="text-success d-inline">Can borrow</h6>
+                                        <h6 th:if="${book.statusBook==0}" class="text-danger d-inline">Can't borrow</h6>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col pe-1">
+                                            <a class="float-end" th:if="${book.statusBook==1}"
+                                                th:href="@{'/addBookBorrow/'+${book.idBook}}"><button type="button"
+                                                    class="btn btn-danger me-1">Borrow</button></a>
+                                            <a class="float-end" th:if="${book.statusBook==0}"><button type="button"
+                                                    class="btn btn-danger me-1" disabled>Borrow</button></a>
+                                            <!-- <button type="button" class="btn btn-info">Watch</button> -->
+                                        </div>
+                                        <div class="col ps-1">
+                                            <button type="button" class="btn btn-primary float-start">Detail</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a th:if="${book.statusBook==1}" th:href="@{'/addBookBorrow/'+${book.idBook}}"><button
-                                        type="button" class="btn btn-danger me-1">Borrow</button></a>
-                                <a th:if="${book.statusBook==0}"><button type="button" class="btn btn-danger me-1"
-                                        disabled>Borrow</button></a>
-                                <!-- <button type="button" class="btn btn-info">Watch</button> -->
                             </div>
                         </div>
                     </div>
@@ -156,143 +92,7 @@
                     </nav>
                 </div>
             </div>
-        </content>
-        <!-- Footer -->
-        <footer class="text-center text-lg-start bg-light text-muted">
-            <!-- Section: Social media -->
-            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-                <!-- Left -->
-                <div class="me-5 d-none d-lg-block">
-                    <span>Get connected with us on social networks:</span>
-                </div>
-                <!-- Left -->
-
-                <!-- Right -->
-                <div>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-google"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-                <!-- Right -->
-            </section>
-            <!-- Section: Social media -->
-
-            <!-- Section: Links  -->
-            <section class="">
-                <div class="container text-center text-md-start mt-5">
-                    <!-- Grid row -->
-                    <div class="row mt-3">
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <!-- Content -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                <i class="fas fa-gem me-3"></i>Company name
-                            </h6>
-                            <p>
-                                Here you can use rows and columns to organize your footer content. Lorem ipsum
-                                dolor sit amet, consectetur adipisicing elit.
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Products
-                            </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Angular</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">React</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Vue</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Laravel</a>
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Useful links
-                            </h6>
-                            <p>
-                                <a href="#!" class="text-reset">Pricing</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Settings</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Orders</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-reset">Help</a>
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold mb-4">
-                                Contact
-                            </h6>
-                            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
-                            <p>
-                                <i class="fas fa-envelope me-3"></i>
-                                info@example.com
-                            </p>
-                            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-                        </div>
-                        <!-- Grid column -->
-                    </div>
-                    <!-- Grid row -->
-                </div>
-            </section>
-            <!-- Section: Links  -->
-
-            <!-- Copyright -->
-            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-                © 2021 Copyright:
-                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    </content>
 </body>
 
 </html>

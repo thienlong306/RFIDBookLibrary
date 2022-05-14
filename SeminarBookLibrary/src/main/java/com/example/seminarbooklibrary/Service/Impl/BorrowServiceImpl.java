@@ -104,8 +104,7 @@ public class BorrowServiceImpl implements BorrowService {
         for (BorrowDomain borrowDomain:listborrowDomain){
             if (dateFrom!=null) {
                 if (borrowDomain.getBeginDateBorrow().after(dateFrom)||borrowDomain.getBeginDateBorrow().equals(dateFrom))
-                    listborrowDomainTmp.add(borrowDomain);
-                else if (borrowDomain.getEndDateBorrow().before(dateTo)||borrowDomain.getEndDateBorrow().equals(dateTo))
+                    if (borrowDomain.getEndDateBorrow().before(dateTo)||borrowDomain.getEndDateBorrow().equals(dateTo))
                         listborrowDomainTmp.add(borrowDomain);
             }
             else if (borrowDomain.getEndDateBorrow().before(dateTo)||borrowDomain.getEndDateBorrow().equals(dateTo))

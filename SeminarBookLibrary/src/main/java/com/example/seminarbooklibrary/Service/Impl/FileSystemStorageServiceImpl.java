@@ -1,7 +1,7 @@
 package com.example.seminarbooklibrary.Service.Impl;
 
 import com.example.seminarbooklibrary.Service.StorageService;
-import com.example.seminarbooklibrary.config.StorageProperties;
+import com.example.seminarbooklibrary.Config.StorageProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

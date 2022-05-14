@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+    <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand me-2" href="https://mdbgo.com/">
+                <i class="fas fa-book-open fa-2x"></i>
+            </a>
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/userBorrow}">Your List Borrow</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                                <a class="nav-link" href="#" th:href="@{/borrow}">List Book Borrow</a>
+                            </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/borrow}" role="button" aria-expanded="false"> <i
+                                class="fa-solid fa-book"></i></span> <span th:text="${booksBorrow.size()}"></span> -
+                            Book Borrow<span class="caret"></span></a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+                <div class="d-flex align-items-center">
+                    <div th:if="${user==null} or ${user.nameUser==null}">
+                        <a th:href="@{/login}">
+                            <button type="button" class="btn btn-link px-3 me-2">
+                                Login
+                            </button>
+                        </a>
+                        <a th:href="@{/signUp}">
+                            <button type="button" class="btn btn-primary me-3">
+                                Sign up for free
+                            </button>
+                        </a>
+                        <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                    <div th:unless="${user==null} or ${user.nameUser==null}">
+                        <i class="fas fa-user"></i> <span th:text="${user.nameUser}"></span>
+                        <a th:href="@{logout}"><u>Logout</u></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+</body>
+
+</html>

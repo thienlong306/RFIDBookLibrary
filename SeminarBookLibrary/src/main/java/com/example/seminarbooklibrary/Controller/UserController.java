@@ -46,11 +46,18 @@ public class UserController {
         ModelAndView modelAndView=new ModelAndView();
         if (httpSession.getAttribute("user")!=null){
             modelAndView.addObject("user",httpSession.getAttribute("user"));
+            UserDomain user= (UserDomain) httpSession.getAttribute("user");
+            if(user.getLoginNameUser().equals("admin")){
+                modelAndView.setViewName("redirect:/admin");        
+            }else{
+                  modelAndView.setViewName("user/BrowseBook");
+            }
+        }else{
+              modelAndView.setViewName("user/BrowseBook");
         }
         modelAndView.addObject("books",bookService.findAll());
         modelAndView.addObject("booksBorrow", bookService.findAllById(bookService.getListIdBookByListRFIDTest()));
-        modelAndView.setViewName("user/BrowseBook");
-
+      
         return modelAndView;
     }
     @GetMapping("userBorrow")
@@ -69,8 +76,14 @@ public class UserController {
         return modelAndView;
     }
     @GetMapping("userBorrow/details/{idBorrow}")
-    public ModelAndView getDetailsBorrow(@PathVariable("idBorrow") Long idBorrow) {
+    public ModelAndView getDetailsBorrow(@PathVariable("idBorrow") String idBorrow1) {
         ModelAndView modelAndView = new ModelAndView();
+        if(idBorrow1.equals("logout"))
+            {
+                modelAndView.setViewName("redirect:/logout");
+                return modelAndView;
+            }
+        Long idBorrow=Long.parseLong(idBorrow1);
 //        modelAndView.addObject("listInfoBorrow",borrowService.getListBorrowModel());
         if (httpSession.getAttribute("user")!=null){
             modelAndView.addObject("user",httpSession.getAttribute("user"));
@@ -98,8 +111,6 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         if (httpSession.getAttribute("user")!=null){
             modelAndView.addObject("user",httpSession.getAttribute("user"));
-        }else {
-            modelAndView.addObject("user",new UserModel());
         }
         modelAndView.addObject("booksBorrow", bookService.findAllById(bookService.getListIdBookByListRFIDTest()));
         modelAndView.setViewName("user/BorrowBookOnline");
@@ -180,6 +191,7 @@ public class UserController {
         borrowDomain.setBeginDateBorrow(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         borrowDomain.setEndDateBorrow(Date.from((localDate.plusDays(4)).atStartOfDay(ZoneId.systemDefault()).toInstant()));
         borrowDomain.setIdUser(userDomain.getIdUser());
+        borrowDomain.setStatusBorrow(1);
         borrowService.saveAndFlush(borrowDomain);
 //        System.out.println(borrowService.findTopByOrderByIdBorrowDesc().getIdBorrow());
         for (Long id:bookService.getListIdBook()){

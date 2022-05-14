@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.liangyuen</groupId>
+  <artifactId>rfid</artifactId>
+  <version>1.0</version>
+  <name>rfid</name>
+  <description>Raspberry pi rc522 module</description>
+  <url>https://gitee.com/liangyuen/rfid</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>abc516</id>
+      <name>Yu-en Liang</name>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git@gitee.com:liangyuen/rfid.git</connection>
+    <developerConnection>git@gitee.com:liangyuen/rfid.git</developerConnection>
+    <url>scm:git@gitee.com:liangyuen/rfid.git</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-core</artifactId>
+      <version>1.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

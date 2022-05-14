@@ -124,7 +124,7 @@ public class BookServiceImpl implements BookService {
         ArrayList<String> listRfid = new ArrayList<>();
         listRfid.add("E28011606000020958CDC43E");
         listRfid.add("E28011606000020958CD98FE");
-//        listRfid=ReadRFID();
+    //    listRfid=ReadRFID();
         if (listRfid.size() != 0) {
             for (TagReadDomain tagReadModel : tagReadService.findAllById(listRfid)) {
                 listIdBook.add(tagReadModel.getIdBook());
@@ -138,8 +138,11 @@ public class BookServiceImpl implements BookService {
         listInfoRfid.clear();
         listRfid.add("E28011606000020958CDC43E");
         listRfid.add("E28011606000020958CD98FF");
-        listRfid.add("E28011606000020958CD98FE");
-//        listRfid=ReadRFID();
+        listRfid.add("E28011606000020958CD78FE");
+        listRfid.add("E28011606000020958CD68FE");
+        listRfid.add("E28011606000020958CD598FE");
+        listRfid.add("E28011606000020958CD498FE");
+    //    listRfid=ReadRFID();
         if (listRfid.size() != 0) {
             for (String rfid:listRfid) {
                 try {

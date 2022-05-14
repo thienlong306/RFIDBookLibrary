@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/adminLayout.html}">
+
+<head>
+    <title>Library</title>
+</head>
+
+<body>
+    <content layout:fragment="content">
+        <div class="row text-center mt-2">
+            <div class="col text-uppercase">
+                <h1 class="font-weight-bold h1">Manager User</h1>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col-12 ">
+                <table class="table align-middle mb-0 bg-white">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>User ID</th>
+                            <th>User</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${users!=null}" th:each="user:${users}">
+                            <td>
+                                <p class="fw-normal mb-1" th:if="${user}"><span th:text="${user.idUser}"></span></p>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1" th:if="${user}"><span th:text="${user.loginNameUser}"></span></p>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1" th:if="${user}"><span th:text="${user.nameUser}"></span></p>
+                            </td>    
+                            <td>
+                                <p class="fw-normal mb-1" th:if="${user}"><span th:text="${user.phoneUser}"></span></p>
+                            </td>    
+                            <td>
+                                <a th:href="@{/admin/scan/addOrEdit/user/}+${user.idUser}">
+                                    <button type="button" class="btn btn-primary">
+                                        Edit
+                                    </button>
+                                </a>
+                                <a th:href="@{/admin/delete/user/}+${user.idUser}">
+                                    <button type="button" class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row m-4">
+            <div class="col d-flex justify-content-center">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </content>
+</body>
+
+</html>
